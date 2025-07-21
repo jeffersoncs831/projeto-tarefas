@@ -13,4 +13,16 @@
         }
     }
 
-    
+    function buscarTarefas(){
+        fetch("http://localhost:3000/tarefas")
+        .then(resposta => resposta.json())
+        .then(json =>{
+            console.log(json);
+        })
+    }
+
+function carregarTarefas(lista){
+const listaDeTarefas = document.querySelector("#lista-de-tarefas");
+lista.map(tarefa => {
+})
+}
