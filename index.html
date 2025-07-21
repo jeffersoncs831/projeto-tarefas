@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
+
     
   </head>
   <body>
@@ -45,23 +46,18 @@
         <!-- botao de adicionar novas tarefas -->
         <button
           onclick="abrirDrawer()"
-          class="h-[46px] flex gap-4 items-center bg-black rounded px-4 text-white fill-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200"
-        >
-          <box-icon type="solid" name="plus-circle"></box-icon>
-          Nova tarefa
+          class="h-[46px] flex gap-4 items-center bg-black rounded px-4 text-white fill-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200">
+          <box-icon type="solid" name="plus-circle"></box-icon>Nova tarefa
         </button>
       </div>
-    </main>
     <!-- Barra lateral (modal) para adicionar ou edita tarefas -->
     <div
       onclick="abrirDrawer()"
       id="overlay"
-      class="w-full h-screen fixed top-0 left-0 bg-black/90 duration-150 opacity-0 invisible"
-    ></div>
+      class="w-full h-screen fixed top-0 left-0 bg-black/90 duration-150 opacity-0 invisible"></div>
     <div
-      id="task-sidebar"
-      class="w-[300px] h-screen overflow-auto bg-white fixed top-0 -right-[300px] p-4 duration-150 delay-150"
-    >
+      id="drawer"
+      class="w-[300px] h-screen overflow-auto bg-white fixed top-0 -right-[300px] p-4 duration-150 delay-150">
       <h1 class="flex items-center justify-between text-[24px]">
         Adicionar
         <span onclick="abrirDrawer()" class="cursor-pointer">
@@ -82,65 +78,35 @@
         <button
           class="h-[46px] bg-black text-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200"
           type="submit"
-          id="save-task-btn"
-        >
-          Criar
+          id="save-task-btn">Criar
         </button>
       </form>
     </div>
 
-    <div id="tasks-container" class="p-4 space-y-4">
-      <ul >
-        <li  class=" text-gray-500 p-4 rounded-lg shadow flex flex-col justify-between w-[318px] h-[163px]">
-          titulo 
-          <div class="flex justify-between items-center mt-4 text-sm ">
-            <!-- conteúdo -->
-             <Data>24/07/25</Data>
-            
-               <button class="m-"><box-icon name='pencil' type='solid' ></box-icon></button>
-               <button class=""><box-icon type='solid' name='trash-alt'></box-icon></button>
-  
-          </div>
-  
-        </li>
+    <div id="lista-de-tarefas" class="grid grid-cols-4 gap-4">
+      <div class="bg-white shadow rounded p-4">
         
-      </div>
+        <h3 class="font-bold"> titulo da tarefa</h3>
+       
+        <p class="text-[14px] text-gray-500 line-clamp-3 mb-4">Descrição da tarefa</p>
+        
+        <div class="flex justify-between items-center">
+         
+          <span class="font-bold text-[10px]">00/00/0000</span>
+          
+          <div class="flex  gap-3">
+            <box-icon type='solid' name='pencil'></box-icon>
+            <box-icon type='solid' name='trash-alt'></box-icon>
+          </div>
 
-        <li  class=" text-gray-500 p-4 rounded-lg shadow flex flex-col justify-between w-[318px] h-[163px]">
-          titulo 
-          <div class="flex justify-between items-center mt-4 text-sm ">
-            <!-- conteúdo -->
-             <Data>24/07/25</Data>
-            
-               <button class="m-"><box-icon name='pencil' type='solid' ></box-icon></button>
-               <button class=""><box-icon type='solid' name='trash-alt'></box-icon></button>
-  
-          </div>
-  
-        </li>
+        </div>
         
       </div>
-      </ul>
+      
+    </div>
+ </main>
+
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    <script>
-      function abrirDrawer(){
-        const divOverlay = document.querySelector("#overlay");
-        const divDrawer = document.querySelector("#drawer");
-
-        if(divOverlay.classList.contains("invisible")){
-            divOverlay.classList.remove("opacity-0", "invisible");
-            divDrawer.classList.remove("-right-[300px]");
-            divDrawer.classList.add("right-0");
-        } else{
-            divOverlay.classList.add("opacity-0", "invisible");
-            divDrawer.classList.remove("right-0");
-            divDrawer.classList.add("-right-[300px]");
-        }
-    }
-
-    
-
-    </script>
   </body>
 </html>
