@@ -7,7 +7,7 @@
      <script src="https://cdn.tailwindcss.com"></script>
     <script src="./js/script.js"></script>
   </head>
-  <body  class="  dark:bg-neutral-900"> 
+  <body  class=" dark:bg-neutral-900"> 
       <header
       class="bg-white shadow-lg flex justify-between items-center px-[60px] py-4 flex-wrap dark:bg-neutral-900"
       >
@@ -22,7 +22,7 @@
         />
       </div>
       <!-- botao de tema -->
-      <button onclick="">
+      <button id="trocaTema">
         <box-icon class="cursor-pointer" type="solid" name="moon"></box-icon>
       </button>
     </header>
@@ -54,26 +54,26 @@
         <box-icon name="x"></box-icon>
       </span>
     </h1>
-    <form class="flex flex-col gap-2 ">
-      <label class="text-sm" for="task-title">Titulo</label>
+    <form class="flex flex-col gap-2 " id="formCriar" onsubmit="criaTarefa()">
+      <label  for="titulo"  name="titulo" class="block mb-1 font-bold">Titulo</label>
       <input
       type="text"
       id="titulo"
-      class="w-full h-[46px] dark:bg-neutral-800"
-      placeholder="digite o titulo"
+      class="w-full h-[46px] dark:bg-neutral-800   mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
+      placeholder="Digite o titulo"
       required
       />
       
-      <label for="task-description">Descrição</label>
+      <label for="descricao"  name="descricao" class="block mb-1 font-bold">Descrição</label>
       <textarea
       id="Descricao"
-      class="h-[100px] dark:bg-neutral-800 "
+      class="h-[100px] dark:bg-neutral-800 mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
       placeholder="Adicione mais detalhes..."
       ></textarea>
       
       <button
-      class="h-[46px] rounded bg-black text-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200 dark:bg-green-300 dark:text-neutral-950"  type="submit"onclick="adicionarTarefa()"id="save-task-btn">
-      Criar
+      class="h-[46px] rounded bg-black text-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200 dark:bg-green-300 dark:text-neutral-950" onclick=" adicionarTarefa()" type="submit">
+      Criar 
     </button>
   </form>
 </div>

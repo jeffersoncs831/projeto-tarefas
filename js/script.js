@@ -1,34 +1,54 @@
 
-    tailwind.config = {
-      darkMode: 'class'
+tailwind.config = {
+  darkMode: 'class'
+}
+
+
+document.addEventListener('DOMContentLoaded', function () {
+  const themeToggleBtn = document.getElementById('trocaTema');
+
+  if (localStorage.getItem('tema') === 'dark') {
+    document.documentElement.classList.add('dark');
+  }
+
+  themeToggleBtn.addEventListener('click', function () {
+    document.documentElement.classList.toggle('dark');
+
+    if (document.documentElement.classList.contains('dark')) {
+      localStorage.setItem('tema', 'dark');
+    } else {
+      localStorage.setItem('tema', 'light');
     }
-
-  function abrirDrawer(){
-        const divOverlay = document.querySelector("#overlay");
-        const divDrawer = document.querySelector("#drawer");
-
-        if(divOverlay.classList.contains("invisible")){
-            divOverlay.classList.remove("opacity-0", "invisible");
-            divDrawer.classList.remove("-right-[300px]");
-            divDrawer.classList.add("right-0");
-        } else{
-            divOverlay.classList.add("opacity-0", "invisible");
-            divDrawer.classList.remove("right-0");
-            divDrawer.classList.add("-right-[300px]");
-        }
-    }
-
-    function adicionarTarefa(){
-    let valorDoTitulo = document.querySelector("#titulo").value
-    let valorDaDescricao = document.querySelector("#Descricao").value
+  });
+});
 
 
-    let dataAtual = new Date();
-    let dataFormatada = dataAtual.toLocaleDateString('pt-BR');
+function abrirDrawer() {
+  const divOverlay = document.querySelector("#overlay");
+  const divDrawer = document.querySelector("#drawer");
+
+  if (divOverlay.classList.contains("invisible")) {
+    divOverlay.classList.remove("opacity-0", "invisible");
+    divDrawer.classList.remove("-right-[300px]");
+    divDrawer.classList.add("right-0");
+  } else {
+    divOverlay.classList.add("opacity-0", "invisible");
+    divDrawer.classList.remove("right-0");
+    divDrawer.classList.add("-right-[300px]");
+  }
+}
+
+function adicionarTarefa() {
+  let valorDoTitulo = document.querySelector("#titulo").value
+  let valorDaDescricao = document.querySelector("#Descricao").value
 
 
-    let li = document.createElement("li")
-    li.innerHTML = `
+  let dataAtual = new Date();
+  let dataFormatada = dataAtual.toLocaleDateString('pt-BR');
+
+
+  let li = document.createElement("li")
+  li.innerHTML = `
     
          <div class="bg-white shadow rounded p-4  dark:bg-neutral-700">
         
@@ -50,14 +70,14 @@
            </div>`
 
 
-    document.querySelector("#lista-de-tarefas").appendChild(li)
-    
-    document.querySelector("#titulo").value = ""
-    document.querySelector("#Descricao").value = ""
-    
-  }
-  
-function deletarTarefa(botao){
+  document.querySelector("#lista-de-tarefas").appendChild(li)
+
+  document.querySelector("#titulo").value = ""
+  document.querySelector("#Descricao").value = ""
+
+}
+
+function deletarTarefa(botao) {
   const li = botao.closest("li")
   li.remove()
 }
@@ -90,7 +110,7 @@ function salvarTarefa(botao) {
   const novaDescricao = descricaoTextarea.value;
 
   // Substitui os inputs por texto novamente
-  tituloInput.outerHTML = `<h3 class="font-bold">${novoTitulo}</h3>`;
+  tituloInput.outerHTML = `<h3 class="font-bold ">${novoTitulo}</h3>`;
   descricaoTextarea.outerHTML = `<p class="text-[14px] text-gray-500 line-clamp-3 mb-4">${novaDescricao}</p>`;
 
   // Troca o botão de salvar de volta para editar
@@ -99,30 +119,61 @@ function salvarTarefa(botao) {
 }
 
 
-  //   function buscarTarefas(){
-  //       fetch("http://localhost:3000/tarefas")
-  //       .then(resposta => resposta.json())
-  //       .then(json =>{
-  //           console.log(json);
-  //       })
-  //   }
+function buscarTarefas() {
+  fetch("http://localhost:3000/tarefas")
+    .then(resposta => resposta.json())
+    .then(json => {
+      carregarTarefas(json);
+    })
+}
 
-//  tarefas.map(tarefa  => {
-//         listaDeTarefa.innerHTML += `
-//         <div class="bg-white shadow rounded p-4">
-        
-//         <h3 class="font-bold">${tarefa.titulo}</h3>
-       
-//         <p class="text-[14px] text-gray-500 line-clamp-3 mb-4">${tarefa.descricao}</p>
-        
-//         <div class="flex justify-between items-center">
-         
-//           <span class="font-bold text-[10px]">${tarefa.data}</span>
-          
-//           <div class="flex  gap-3">
-//             <box-icon type='solid' name='pencil'></box-icon>
-//           </div>
-//             <box-icon type='solid' name='trash-alt'></box-icon>
+buscarTarefas()
 
-//         </div>
-//       </div>
+function carregarTarefas(tarefas) {
+  const listaDeTarefas = document.querySelector("#lista-de-tarefas");
+  tarefas.map(tarefa => {
+    listaDeTarefas.innerHTML += `
+            <div class="bg-white shadow rounded p-4">
+                <h3 class="font-bold">${tarefa.titulo}</h3>
+                <p class="text-[14px] text-gray-500 line-clamp-3 mb-4">${tarefa.descricao}</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-[10px]">${tarefa.data}</span>
+                    <div class="flex gap-3">
+                   <button onclick="editarTarefa(${tarefa.descricao})" class="cursor-pointer dark:fill-neutral-500 hover:dark:fill-green-300">
+                      <box-icon type='solid' name='pencil'></box-icon>
+                    </button>
+                    <button onclick ="deletarTarefa(${tarefa.id})"    class="cursor-pointer dark:fill-neutral-500 hover:dark:fill-green-300">
+                        <box-icon type='solid' name='trash-alt'></box-icon>
+                      </button>
+                    </div>
+                </div>
+            </div>
+        `;
+  })
+}
+
+
+function criaTarefa() {
+ event.preventDefault();
+
+  fetch("http://localhost:3000/tarefas", {
+    method: "post",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(capturarDados("#formCriar"))
+  })
+    
+}
+
+function capturarDados(ideDeUmFormulario){
+  let form = document.querySelector(ideDeUmFormulario);
+  let formData = new formData(form);
+  let dados = Object.fromEntries(formData.entries())
+  return dados;
+}
+
+
+function deletarTarefa(idTarefa){
+  fetch(`http://localhost:3000/tarefas/${idTarefa}`)
+}
