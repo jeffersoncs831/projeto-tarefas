@@ -9,32 +9,30 @@
   </head>
   <body  class=" dark:bg-neutral-900"> 
       <header
-      class="bg-white shadow-lg flex justify-between items-center px-[60px] py-4 flex-wrap dark:bg-neutral-900"
-      >
+      class="bg-white shadow-lg flex justify-between items-center px-[70px] py-4 flex-wrap dark:bg-neutral-900 max-sm:px-[20px]  ">
       <div class="flex items-center gap-[70px]">
         <!--titulo e campo de buscar  -->
         <h1 class="font-bold text-[26px] dark:text-neutral-300">Tarefas</h1>
-        <input
-        class="bg-black/5 w-[500px] h-[46px] rounded pl-4 dark:bg-neutral-800"
-        type="text"
-        placeholder="Pesquisar"
-        id="buscarTarefas "
-        />
+        <input class="bg-black/5 w-[500px] h-[46px] rounded pl-4 dark:bg-neutral-800 max-sm:hidden max-md:w-[300px] max-lg:w-[300px]" type="text" placeholder="Pesquisar"id="buscarTarefas "/>
       </div>
-      <!-- botao de tema -->
-      <button id="trocaTema">
-        <box-icon class="cursor-pointer" type="solid" name="moon"></box-icon>
-      </button>
+      <div class="max-sm:px-2">
+        <button id="show-seach-mobile" title="Buscar tarefa" class=" max-sm:px-5  sm:hidden  md:hidden  lg:hidden ">
+          <box-icon name="search"></box-icon>
+          <button id="trocaTema">
+            <box-icon class="cursor-pointer" type="solid" name="moon"></box-icon>
+          </button>
+          
+        </div>
     </header>
 
 
-    <main class=" h-screen px-[60px] pt-[60px] dark:bg-neutral-800">
+    <main class=" h-screen px-[60px] pt-[60px] dark:bg-neutral-800  max-sm:px-[2px] max-sm:pt-[2px]">
       <div class="flex justify-between items-center">
         <h2 class="font-bold text-[36px] text-black/50 dark:text-neutral-400">Tarefas</h2>
         <!-- botao de adicionar novas tarefas -->
         <button
         onclick="abrirDrawer()"
-        class="h-[46px] flex gap-4 items-center bg-black rounded px-4 text-white fill-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200 dark:bg-green-300 dark:text-neutral-950 dark:fill-neutral-950">
+        class="h-[46px] flex gap-4 items-center bg-black rounded px-4 text-white fill-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200 dark:bg-green-300 dark:text-neutral-950 dark:fill-neutral-950 max-sm:hidden">
         <box-icon type="solid" name="plus-circle"></box-icon>Nova tarefa
       </button>
     </div>
@@ -54,24 +52,18 @@
         <box-icon name="x"></box-icon>
       </span>
     </h1>
-    <form class="flex flex-col gap-2 " id="formCriar" onsubmit="criaTarefa()">
+    <form class="flex flex-col gap-2 " id="formCriar" onsubmit="criarTarefa()">
       <label  for="titulo"  name="titulo" class="block mb-1 font-bold">Titulo</label>
-      <input
-      type="text"
-      id="titulo"
-      class="w-full h-[46px] dark:bg-neutral-800   mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
+      <input type="text" id="titulo" class="w-full h-[46px] dark:bg-neutral-800   mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
       placeholder="Digite o titulo"
-      required
       />
       
       <label for="descricao"  name="descricao" class="block mb-1 font-bold">Descrição</label>
-      <textarea
-      id="Descricao"
-      class="h-[100px] dark:bg-neutral-800 mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
+      <textarea id="descricao"class="h-[100px] dark:bg-neutral-800 mb-3 pl-3 border-2 border-slate-300 focus:border-black rounded"
       placeholder="Adicione mais detalhes..."
       ></textarea>
       
-      <button
+      <button type="submit"
       class="h-[46px] rounded bg-black text-white uppercase font-bold text-[12px] cursor-pointer hover:opacity-80 transition-opacity duration-200 dark:bg-green-300 dark:text-neutral-950" onclick=" adicionarTarefa()" type="submit">
       Criar 
     </button>
@@ -79,18 +71,9 @@
 </div>
 
 <div id="lista-de-tarefas" class="grid grid-cols-4 gap-4 list-none"></div>
-
-      <div>
-          <button id="show-seach-mobile" title="Buscar tarefa" class="hidden">
-            <box-icon name="search"></box-icon>
-          </button>
-          <button id="hide-seach-mobile" title="Fecha Busca" class="hidden">
-            <box-icon name="x"></box-icon>
-          </button>
-          <button id="theme-toggle-btn" title="Alternar Tema" class="hidden">
-            <box-icon type="solid" name="moon"></box-icon>
-          </button>
-        </div>
+<button onclick=" abrirDrawer()" >
+  <box-icon type="solid" name="plus-circle"></box-icon>
+</button>
 </main>
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
